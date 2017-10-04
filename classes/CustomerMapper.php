@@ -19,15 +19,17 @@ class CustomerMapper extends Mapper
      * @param int $customer_id The ID of the customer
      * @return customerEntity  The customer
      */
-    public function getcustomerById($customer_id) {
+    public function getCustomerById($customer_id) {
         $sql = "SELECT *
             from customers c
             where c.id = :customer_id";
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute(["customer_id" => $customer_id]);
-        if($result) {
-            return new CustomerEntity($stmt->fetch());
+        $data = $stmt->fetch();
+        if($result && is_array($data)) {
+            return new CustomerEntity($data);
         }
+        return null;
     }
     public function save(CustomerEntity $customer) {
         $sql = "UPDATE customers SET
