@@ -31,6 +31,7 @@ class CustomerMapper extends Mapper
         }
         return null;
     }
+    
     public function save(CustomerEntity $customer) {
         $sql = "UPDATE customers SET
                 first_name  = :first_name,
